@@ -2,11 +2,11 @@ export class creatingMarketplace {
     private readonly productsList: storeProducts [] = [];
     insertproductsinsideArray (...productsList: storeProducts []): void {
         for (const product of productsList) {
-            console.log(this.productsList.push(product));
+            this.productsList.push(product);
         }
     };
 
-    removeProducts (...productsList: storeProducts []): void {
+    public removeProducts (...productsList: storeProducts []): void {
         for (const product of productsList) {
             const index = this.productsList.findIndex(p => p === product);
             if (index !== -1) {
@@ -15,9 +15,23 @@ export class creatingMarketplace {
         }
     };
 
-    displayItemsinsidetheList (): number {
-        return this.productsList.length;
+    public displayItemsinsidetheList (): void {
+        if (this.productsList.length === 0) {
+            console.log("No products inside the list.");
+            return;
+        }
+
+        this.productsList.forEach(product => {
+            console.log(`Product Name: ${product.obtainproductName}, Brand: ${product.obtainproductBrand}, Price: R$${product.obtainproductPrice}`);
+        });
+
+        console.log(`Total items: ${this.productsList.length}x`);
+
     };
+
+    public addingtotheValue (): number {
+       return this.productsList.reduce((ac, price) => ac + price.obtainproductPrice, 0);
+    }
 
 }
 
@@ -44,6 +58,4 @@ export class storeProducts {
 
 const randomProduct = new creatingMarketplace();
 const product = new storeProducts('Biscuit', 10, 'Marilan');
-randomProduct.insertproductsinsideArray(product);
-console.log(randomProduct.displayItemsinsidetheList());
-console.log(randomProduct); 
+randomProduct.displayItemsinsidetheList();
